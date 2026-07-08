@@ -5,7 +5,7 @@
 <title>HORAI Entertainment — Cultural Club, Artist Platform, Events &amp; Festivals</title>
 <meta name="description" content="HORAI is a cultural club built as a space where artists can be seen without being packaged. One club, five stages.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="assets/horai-mark.png">
+<link rel="icon" href="horai-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Nunito+Sans:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -138,6 +138,13 @@
   .formfoot{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:10px;flex-wrap:wrap;}
   .agree{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--bone-dim);font-family:'Nunito Sans',sans-serif;}
   .agree input{width:auto;margin-top:3px;}
+  .hp-field{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+  .formstatus{display:none;margin-top:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;line-height:1.6;padding:14px 16px;border:1px solid var(--line);align-items:flex-start;gap:10px;}
+  .formstatus.show{display:flex;}
+  .formstatus.sending{border-color:var(--line);color:var(--bone-dim);}
+  .formstatus.success{border-color:var(--gold);color:var(--gold);background:rgba(201,161,93,0.08);}
+  .formstatus.error{border-color:var(--rust);color:#e0a08c;background:rgba(124,63,45,0.14);}
 
   /* ---- CONTACT / FOOTER ---- */
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:56px;}
@@ -169,7 +176,7 @@
 <!-- NAV -->
 <header class="nav" id="siteNav">
   <div class="navwrap">
-    <a class="navbrand" href="#top"><img src="assets/horai-mark.png" alt="HORAI mark">HORAI</a>
+    <a class="navbrand" href="#top"><img src="horai-mark.png" alt="HORAI mark">HORAI</a>
     <nav class="links">
       <a href="#essence">Essence</a>
       <a href="#stages">Stages</a>
@@ -192,7 +199,7 @@
 
 <!-- COVER -->
 <section class="cover" id="top">
-  <img class="mark" src="assets/horai-mark.png" alt="HORAI Entertainment mark">
+  <img class="mark" src="horai-mark.png" alt="HORAI Entertainment mark">
   <div class="brandline">Cultural Club — Artist Platform — Events &amp; Festivals</div>
   <h1 class="statement">HORAI doesn't sell <em>a night out.</em><br>It opens a door.</h1>
   <p class="sub">A space where artists get seen without being packaged. Rooted in Tunis first, built to travel further as the room grows.</p>
@@ -216,8 +223,8 @@
   </div>
   <div class="wrap">
     <div class="markframe" id="markFrame">
-      <img src="assets/horai-mark.png" alt="HORAI mark, static">
-      <video id="markVideo" src="assets/horai-mark-animation.mp4" muted loop playsinline preload="metadata"></video>
+      <img src="horai-mark.png" alt="HORAI mark, static">
+      <video id="markVideo" src="horai-mark-animation.mp4" muted loop playsinline preload="metadata"></video>
       <button class="soundtoggle" id="soundToggle" aria-label="Toggle sound" title="Toggle sound">🔇</button>
       <div class="hint" id="markHint">Hover to see it move</div>
     </div>
@@ -276,7 +283,7 @@
     <div class="next-grid reveal">
       <div class="poster">
         <div class="prow">
-          <img class="pmark" src="assets/horai-mark.png" alt="mark">
+          <img class="pmark" src="horai-mark.png" alt="mark">
           <div class="ptag">TBA</div>
         </div>
         <div>
@@ -309,12 +316,12 @@
       <div class="stage special"><div class="n">Special</div><h4>Verdine</h4><p>By invitation — ask us if you think this is you.</p></div>
     </div>
 
-    <form class="applybox reveal" id="applyForm" action="mailto:apply@horai.club" method="POST" enctype="text/plain">
+    <form class="applybox reveal" id="applyForm" novalidate>
       <div>
-        <div class="field"><label for="name">Full name</label><input id="name" name="Full name" type="text" required></div>
-        <div class="field"><label for="email">Email</label><input id="email" name="Email" type="email" required></div>
+        <div class="field"><label for="name">Full name</label><input id="name" type="text" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" required></div>
         <div class="field"><label for="discipline">Which stage?</label>
-          <select id="discipline" name="Discipline" required>
+          <select id="discipline" required>
             <option value="">Select one</option>
             <option>Film &amp; Photography</option>
             <option>Performance &amp; Dance</option>
@@ -324,8 +331,12 @@
             <option>Other</option>
           </select>
         </div>
-        <div class="field"><label for="portfolio">Portfolio / work sample (optional)</label><input id="portfolio" name="Portfolio" type="url" placeholder="https://"></div>
-        <div class="field"><label for="why">Why HORAI?</label><textarea id="why" name="Why HORAI" required></textarea></div>
+        <div class="field"><label for="portfolio">Portfolio / work sample (optional)</label><input id="portfolio" type="url" placeholder="https://"></div>
+        <div class="field"><label for="why">Why HORAI?</label><textarea id="why" required></textarea></div>
+        <div class="hp-field" aria-hidden="true">
+          <label for="hp">Leave this field empty</label>
+          <input type="text" id="hp" tabindex="-1" autocomplete="off">
+        </div>
         <div class="formfoot">
           <label class="agree"><input type="checkbox" required> I'll show up with respect for the space and the people in it.</label>
         </div>
@@ -336,8 +347,9 @@
           <div class="meta">Applications reviewed on a rolling basis<br>Français · English · العربية welcome</div>
         </div>
         <div style="margin-top:30px;display:flex;flex-direction:column;gap:14px;">
-          <button type="submit" class="btn solid" style="justify-content:center;">Start your application</button>
-          <a class="btn dim" style="justify-content:center;" href="assets/HORAI-application-form.pdf" download>Download printable form (PDF)</a>
+          <button type="submit" class="btn solid" id="submitBtn" style="justify-content:center;">Start your application</button>
+          <a class="btn dim" style="justify-content:center;" href="HORAI-application-form.pdf" download>Download printable form (PDF)</a>
+          <div class="formstatus" id="formStatus" role="status" aria-live="polite"></div>
         </div>
       </div>
     </form>
@@ -365,7 +377,7 @@
 </section>
 
 <footer>
-  <img src="assets/horai-mark.png" alt="mark">
+  <img src="horai-mark.png" alt="mark">
   <p>Horai Entertainment · Cultural Club — Artist Platform — Events &amp; Festivals</p>
 </footer>
 
@@ -427,6 +439,76 @@
     video.muted = !userWantsSound;
     soundToggle.textContent = userWantsSound ? '🔊' : '🔇';
     if (frame.classList.contains('playing')) hint.textContent = userWantsSound ? 'Playing with sound' : 'Playing on mute';
+  });
+
+  // ---- Application form -> Discord webhook ----
+  const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1524404719529885718/zw9os99xlUYIMOqzBTFY99dd-vQr17E9fGR6cxooZ3WzWNnROj-p4cQQG6HID4-vkpxt";
+
+  const applyForm = document.getElementById('applyForm');
+  const formStatus = document.getElementById('formStatus');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showStatus(type, message){
+    formStatus.className = 'formstatus show ' + type;
+    formStatus.textContent = message;
+  }
+
+  applyForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    // honeypot — real applicants never fill this in, bots often do
+    if (document.getElementById('hp').value) return;
+
+    if (!applyForm.checkValidity()) {
+      applyForm.reportValidity();
+      return;
+    }
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const discipline = document.getElementById('discipline').value;
+    const portfolio = document.getElementById('portfolio').value.trim() || 'Not provided';
+    const why = document.getElementById('why').value.trim();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    showStatus('sending', 'Sending your application…');
+
+    const payload = {
+      username: "HORAI Applications",
+      embeds: [{
+        title: "New application — " + discipline,
+        color: 13214045,
+        fields: [
+          { name: "Name", value: name, inline: true },
+          { name: "Email", value: email, inline: true },
+          { name: "Stage", value: discipline, inline: true },
+          { name: "Portfolio", value: portfolio, inline: false },
+          { name: "Why HORAI", value: why || "—", inline: false }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    try {
+      const res = await fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        showStatus('success', "You're in the room. Your application was received — we'll be in touch soon.");
+        submitBtn.textContent = 'Application sent ✓';
+        applyForm.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+      } else {
+        throw new Error('Discord responded with ' + res.status);
+      }
+    } catch (err) {
+      showStatus('error', "Something went wrong sending that. Try again in a moment, or reach us directly on Discord/Instagram.");
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Start your application';
+    }
   });
 </script>
 
